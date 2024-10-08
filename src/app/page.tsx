@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardContent, CardListContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CommandMenu } from "@/components/command-menu";
 import { Metadata } from "next";
@@ -12,6 +12,9 @@ import { ProjectCard } from "@/components/project-card";
 export const metadata: Metadata = {
   title: `${RESUME_DATA.name} | ${RESUME_DATA.about}`,
   description: RESUME_DATA.summary,
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function Page() {
@@ -67,8 +70,8 @@ export default function Page() {
                   size="icon"
                   asChild
                 >
-                  <a href={social.url}>
-                    <social.icon className="size-4" />
+                  <a href={social.url} target="_blank">
+                    <social.icon className="size-4"/>
                   </a>
                 </Button>
               ))}
@@ -131,9 +134,7 @@ export default function Page() {
                     {work.title}
                   </h4>
                 </CardHeader>
-                <CardContent className="mt-2 text-xs print:text-[10px]">
-                  {work.description}
-                </CardContent>
+                <CardListContent items={[...work.description]} className="mt-2 text-xs print:text-[10px]"/>
               </Card>
             );
           })}
@@ -184,6 +185,7 @@ export default function Page() {
                   description={project.description}
                   tags={project.techStack}
                   link={"link" in project ? project.link.href : undefined}
+                  online={project.online}
                 />
               );
             })}

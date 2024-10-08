@@ -76,6 +76,27 @@ const CardFooter = React.forwardRef<
 ));
 CardFooter.displayName = "CardFooter";
 
+const CardListContent = React.forwardRef<
+  HTMLUListElement,
+  { className?: string; items: string[] }
+>(({ className, items, ...props }, ref) => (
+  <ul
+    ref={ref}
+    className={cn(
+      "text-pretty font-mono text-sm text-muted-foreground",
+      className,
+    )}
+    {...props}
+  >
+    {items.map((item, index) => (
+      <li key={index} className="list-disc list-inside">
+        {item}
+      </li>
+    ))}
+  </ul>
+));
+CardListContent.displayName = "CardListContent";
+
 export {
   Card,
   CardHeader,
@@ -83,4 +104,5 @@ export {
   CardTitle,
   CardDescription,
   CardContent,
+  CardListContent,
 };
